@@ -58,45 +58,38 @@ function App() {
 
   return (
     <>
-      <div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
-        <div class="relative bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10">
-          <div class="mx-auto max-w-md">
-            <h1 className="mb-4 text-4xl font-extrabold">Quiz</h1>
+        <div className="bg-white pt-10 pb-8 shadow-xl sm:mx-auto sm:rounded-lg sm:px-10 w-128">
+          <h1 className="mb-4 text-4xl font-extrabold">Quiz</h1>
+          {showScore ? (
+            <div>
+              You scored {score} out of {questions.length}
+            </div>
+          ) : (
+            <>
+              <p>
+                Question {currentQuestion + 1} of {questions.length}
+              </p>
+              <p>----</p>
+              <p className="mb-4">{questions[currentQuestion].questionText}</p>
 
-            {showScore ? (
-              <div className="score-section">
-                You scored {score} out of {questions.length}
+              <div className="flex space-x-4">
+                {questions[currentQuestion].answerOptions.map(
+                  (answerOptions, index) => (
+                    <button
+                      key={index}
+                      className="text-white sm:px-2 sm:py-2 bg-sky-700 hover:bg-sky-800 rounded"
+                      onClick={() =>
+                        handleAnswerButtonClick(answerOptions.isCorrect)
+                      }
+                    >
+                      {answerOptions.answerText}
+                    </button>
+                  )
+                )}
               </div>
-            ) : (
-              <>
-                <div className="flex items-center">
-                  <div className="space-y-4">
-                    Question {currentQuestion + 1} of {questions.length}
-                  </div>
-                  <div className="space-y-4">
-                    {questions[currentQuestion].questionText}
-                  </div>
-                </div>
-
-                <div className="answer-section">
-                  {questions[currentQuestion].answerOptions.map(
-                    (answerOptions) => (
-                      <button
-                        className="text-white px-4 sm:px-8 py-2 sm:py-3 bg-sky-700 hover:bg-sky-800"
-                        onClick={() =>
-                          handleAnswerButtonClick(answerOptions.isCorrect)
-                        }
-                      >
-                        {answerOptions.answerText}
-                      </button>
-                    )
-                  )}
-                </div>
-              </>
-            )}
-          </div>
+            </>
+          )}
         </div>
-      </div>
     </>
   );
 }
