@@ -13,6 +13,29 @@ function App() {
       .catch((error) => console.error(error));
   }, []);
 
+  // //useEffect(() => {
+  // //  setQuestions([
+  // //    {
+  // //      questionText: "Where is the Taj Mahal?",
+  // //      answerOptions: [
+  // //        { answerText: "Agra", isCorrect: true },
+  //         { answerText: "New Delhi", isCorrect: false },
+  //         { answerText: "Mumbai", isCorrect: false },
+  //         { answerText: "Chennai", isCorrect: false },
+  //       ],
+  //     },
+  //     {
+  //       questionText: "Where is the Great Wall of China?",
+  //       answerOptions: [
+  //         { answerText: "China", isCorrect: true },
+  //         { answerText: "Beijing", isCorrect: false },
+  //         { answerText: "Shanghai", isCorrect: false },
+  //         { answerText: "Tianjin", isCorrect: false },
+  //       ],
+  //     },
+  //   ]);
+  // }, []);
+
   useEffect(() => {
     console.log("score has been updated: ", score);
     if (!showScore) return;
@@ -22,9 +45,9 @@ function App() {
     })
       .then((response) => response.json())
       .catch((error) => console.error(error));
-  }, [score]);
+  }, [showScore, score]);
 
-  const handleAnswerButtonClick = async (isCorrect) => {
+  const handleAnswerButtonClick = (isCorrect) => {
     if (isCorrect === true) {
       setScore((score) => score + 1);
       console.log(score);
